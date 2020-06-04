@@ -1,0 +1,22 @@
+.page__wrapper {
+  margin: 20px auto;
+  width: 75%;
+}
+
+.photoset__wrapper {
+  border: solid #A9A9A9 3px;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding-left: 5px;
+}
+.photoset__title {
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+.photoset__description {
+  color: #808080;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */

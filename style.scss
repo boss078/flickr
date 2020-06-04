@@ -1,0 +1,26 @@
+$border-color: #A9A9A9;
+$description-color: #808080;
+
+.page {
+  &__wrapper {
+    margin: 20px auto;
+    width: 75%;
+  }
+}
+.photoset {
+  &__wrapper {
+    border: solid $border-color 3px;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding-left: 5px;
+  }
+  &__title {
+    font-size: 20px;
+    padding-bottom: 5px;
+  }
+  &__description {
+    color: $description-color;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+}
