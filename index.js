@@ -2,8 +2,9 @@
 /* eslint-disable jquery/no-show */
 const objects = [];
 let photosetsData;
+let carouselData;
 $(() => {
-  fetch('https://www.flickr.com/services/rest/?method=flickr.collections.getTree&api_key=c0c650afee07cfbebeb590e0d5208286&user_id=48600090482%40N01&format=json&nojsoncallback=1&api_sig=e3da3fb9fc8ac3392ea84d8de190b2b5')
+  fetch('https://www.flickr.com/services/rest/?method=flickr.collections.getTree&api_key=f6146b5aea320305af01030c6fc04c59&user_id=48600090482%40N01&format=json&nojsoncallback=1')
     .then((response) => response.json())
     .then((data) => {
       const collections = data.collections.collection;
@@ -13,6 +14,7 @@ $(() => {
         }
       }
       photosetsData = new Array(objects.length).fill(0);
+      carouselData = new Array(objects.length).fill(0);
       for (let currPageIndex = 0; currPageIndex < Math.ceil(objects.length / 7);
         currPageIndex += 1) {
         const currPage = $('<div></div>')
@@ -64,27 +66,60 @@ function changePage(targetPage) {
 
 // eslint-disable-next-line no-unused-vars
 function showPhotosetPhotos(photosetIndex) {
+  if ($('.carousel-inner').length !== 0) {
+    $('.carousel-inner').detach();
+  }
   if (photosetsData[photosetIndex] === 0) {
-    fetch(`https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=c0c650afee07cfbebeb590e0d5208286&photoset_id=${objects[photosetIndex].id}&format=json&nojsoncallback=1&api_sig=ebf4eec29d25d7533922890e81f05877`)
-      .then((response) => response.json())
+    fetch(`https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=f6146b5aea320305af01030c6fc04c59&photoset_id=${objects[photosetIndex].id}&user_id=48600090482%40N01&format=json&nojsoncallback=1`)
+      .then((response) => response.json(), (error) => {
+        console.log(error.message);
+      })
       .then((data) => {
         photosetsData[photosetIndex] = data.photoset.photo;
         const photosetPhotos = $('<div></div>')
           .addClass('visible')
           .attr('id', `photoset${photosetIndex}-photos`);
-        photosetsData[photosetIndex].forEach((element) => {
-          const photoWrapper = $('<div></div>')
-            .addClass('photo-object__wrapper');
-          const photoTitle = $('<div></div>')
-            .addClass('photo-object__title')
+        const carouselModalButton = $('<input/>')
+          .addClass('btn btn-primary')
+          .attr({
+            type: 'button',
+            value: 'View Photos',
+            'data-toggle': 'modal',
+            'data-target': '#carousel-modal',
+            onclick: `changeCarousel(${photosetIndex});`,
+          })
+          .text('Open modal');
+        photosetPhotos.append(carouselModalButton);
+        const carouselPhotosWrapper = $('<div></div>')
+          .addClass('carousel-inner');
+        photosetsData[photosetIndex].forEach((element, index) => {
+          const carouselPhotoWrapper = $('<div></div>')
+            .addClass('carousel-item');
+          if (index === 0) {
+            carouselPhotoWrapper.addClass('active');
+          }
+          const carouselPhoto = $('<img>')
+            .attr({
+              src: `https://farm${element.farm}.staticflickr.com/${element.server}/${element.id}_${element.secret}.jpg`,
+              alt: `${element.title}`,
+              width: '766',
+              height: '575',
+            });
+          const photoTitle = $(`<h3>${element.title}</h3>`);
+          const carouselCaption = $('<div></div')
+            .addClass('carousel-caption');
+          carouselCaption.append(photoTitle);
+          carouselPhotoWrapper.append(carouselPhoto, carouselCaption);
+          carouselPhotosWrapper.append(carouselPhotoWrapper);
+          const photoLink = $('<div></div>')
+            .addClass('photoset__photo-title')
             .text(element.title);
-          photoWrapper.append(photoTitle);
-          photosetPhotos.append(photoWrapper);
+          photosetPhotos.append(photoLink);
         });
+        carouselData[photosetIndex] = carouselPhotosWrapper;
         $(`#photoset${photosetIndex}`).append(photosetPhotos);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+      }, (error) => {
+        console.log('Error:', error);
       });
   } else {
     const photos = $(`#photoset${photosetIndex}-photos`);
@@ -96,4 +131,10 @@ function showPhotosetPhotos(photosetIndex) {
       photos.addClass('visible');
     }
   }
+}
+
+// eslint-disable-next-line no-unused-vars
+function changeCarousel(carouselIndex) {
+  $('.carousel-inner').detach();
+  $('#carousel-photo').prepend(carouselData[carouselIndex]);
 }

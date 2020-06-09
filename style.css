@@ -18,5 +18,13 @@
   font-size: 14px;
   padding-left: 10px;
 }
+.photoset__photo-title {
+  padding: 5px 0;
+}
+
+.carousel-caption {
+  color: #2B60DE;
+  text-shadow: -1px -1px 0 #0BB5FF, 1px -1px 0 #0BB5FF, -1px 1px 0 #0BB5FF, 1px 1px 0 #0BB5FF;
+}
 
 /*# sourceMappingURL=style.css.map */

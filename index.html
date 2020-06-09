@@ -11,15 +11,44 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
      
     <link rel="stylesheet" href="style.css" type="text/css">
-    <script src="code.js"></script>
+    <script src="index.js"></script>
   </head>
   <body>
     <div class="page__wrapper">
+      
       <div id="loaded_data"></div>
     </div>
     <footer>
       <ul class="pagination pagination-lg justify-content-center">
       </ul>
     </footer>
+    <div class="modal fade" id="carousel-modal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Photo View</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div id="carousel-photo" class="carousel slide" data-interval="false">
+              <!-- The slideshow -->
+              
+              <!-- Left and right controls -->
+              <a class="carousel-control-prev" href="#carousel-photo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </a>
+              <a class="carousel-control-next" href="#carousel-photo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </body>
 </html>

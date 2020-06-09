@@ -1,5 +1,7 @@
 $border-color: #A9A9A9;
 $description-color: #808080;
+$royal-blue: #2B60DE;
+$police-strobe: #0BB5FF;
 
 .page {
   &__wrapper {
@@ -23,4 +25,16 @@ $description-color: #808080;
     font-size: 14px;
     padding-left: 10px;
   }
+  &__photo-title {
+    padding: 5px 0;
+  }
+}
+
+.carousel-caption {
+  color: $royal-blue;
+  text-shadow:
+    -1px -1px 0 $police-strobe,
+    1px -1px 0 $police-strobe,
+    -1px 1px 0 $police-strobe,
+    1px 1px 0 $police-strobe;  
 }
