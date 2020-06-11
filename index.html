@@ -14,12 +14,27 @@
     <script src="index.js"></script>
   </head>
   <body>
-    <div class="page__wrapper">
-      
+    <header class="page page__header header ">
+      <div class="dropdown text-center">
+        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+          Default order
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="javascript:changeOrder('default');">Default order</a>
+          <a class="dropdown-item" href="javascript:changeOrder('ascending');">Alphabetic ascending</a>
+          <a class="dropdown-item" href="javascript:changeOrder('descending');">Alphabetic descending</a>
+        </div>
+      </div> 
+      <div class="search-wrapper">
+        <input type="text" class="form-control" id="search-field">
+        <button type="button" onclick="applySearch()" class="btn btn-outline-info">Search</button>
+      </div>
+    </header>
+    <div class="page page__wrapper">
       <div id="loaded_data"></div>
     </div>
-    <footer>
-      <ul class="pagination pagination-lg justify-content-center">
+    <footer class="page page__footer">
+      <ul class="pagination flex-wrap pagination-lg justify-content-center">
       </ul>
     </footer>
     <div class="modal fade" id="carousel-modal">

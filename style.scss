@@ -4,10 +4,32 @@ $royal-blue: #2B60DE;
 $police-strobe: #0BB5FF;
 
 .page {
-  &__wrapper {
-    margin: 20px auto;
-    width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  @media screen and (max-width: 766px) {
+    width: 90%;
   }
+  &__header {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  &__wrapper {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  @media screen and (max-width: 766px) {
+    flex-direction: column-reverse;
+  }
+}
+.search-wrapper {
+  display: flex;
+  width: 100%;
 }
 .photoset {
   &__wrapper {

@@ -1,6 +1,36 @@
+.page {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+@media screen and (max-width: 766px) {
+  .page {
+    width: 90%;
+  }
+}
+.page__header {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 .page__wrapper {
-  margin: 20px auto;
-  width: 75%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+@media screen and (max-width: 766px) {
+  .header {
+    flex-direction: column-reverse;
+  }
+}
+
+.search-wrapper {
+  display: flex;
+  width: 100%;
 }
 
 .photoset__wrapper {
