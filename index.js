@@ -52,9 +52,14 @@ $(() => {
       }
       $('.page-item:first').addClass('active');
       $('#page0').show();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
+    }, (error) => {
+      const errorWrapper = $('<div></div')
+        .addClass('error__wrapper');
+      const errorMessage = $('<div></div')
+        .addClass('error__message')
+        .text(`Failed to load data, because ${error.name} happend. Error message: ${error.message}`);
+      errorWrapper.append(errorMessage);
+      $('#loaded_data').append(errorWrapper);
     });
 });
 
@@ -77,10 +82,9 @@ function showPhotosetPhotos(photosetIndex) {
   }
   if (photosetsData[photosetIndex] === 0) {
     fetch(`https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=f6146b5aea320305af01030c6fc04c59&photoset_id=${objects[photosetIndex].id}&user_id=48600090482%40N01&format=json&nojsoncallback=1`)
-      .then((response) => response.json(), (error) => {
-        console.log(error.message);
-      })
+      .then((response) => response.json())
       .then((data) => {
+        $(`#photoset${photosetIndex}`).find($('.error__wrapper')).remove();
         photosetsData[photosetIndex] = data.photoset.photo;
         const photosetPhotos = $('<div></div>')
           .addClass('visible')
@@ -126,7 +130,15 @@ function showPhotosetPhotos(photosetIndex) {
         carouselData[photosetIndex] = carouselPhotosWrapper;
         $(`#photoset${photosetIndex}`).append(photosetPhotos);
       }, (error) => {
-        console.log('Error:', error);
+        if ($(`#photoset${photosetIndex}`).find($('.error__wrapper')).length === 0) {
+          const errorWrapper = $('<div></div')
+            .addClass('error__wrapper');
+          const errorMessage = $('<div></div')
+            .addClass('error__message')
+            .text(`Faild to load more info, because ${error.name} happend. Error message: ${error.message}`);
+          errorWrapper.append(errorMessage);
+          $(`#photoset${photosetIndex}`).append(errorWrapper);
+        }
       });
   } else {
     const photos = $(`#photoset${photosetIndex}-photos`);

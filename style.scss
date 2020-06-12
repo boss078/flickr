@@ -1,6 +1,7 @@
 $border-color: #A9A9A9;
 $description-color: #808080;
 $royal-blue: #2B60DE;
+$red-crayola: #EE204D;
 $police-strobe: #0BB5FF;
 
 .page {
@@ -59,4 +60,14 @@ $police-strobe: #0BB5FF;
     1px -1px 0 $police-strobe,
     -1px 1px 0 $police-strobe,
     1px 1px 0 $police-strobe;  
+}
+.error {
+  &__wrapper {
+    padding-top: 10px;
+  }
+  &__message {
+    color: $red-crayola;
+    font-size: 25px;
+    text-align: center; 
+  }
 }
